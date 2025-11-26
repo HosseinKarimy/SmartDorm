@@ -4,7 +4,7 @@ namespace SmartDorm.Models;
 
 public class StudentPreference
 {
-    public int PreferenceId { get; set; }
+    public int Id { get; set; }
     public SleepHabit SleepHabit { get; set; }
     public NoiseToleranceLevel NoiseToleranceLevel { get; set; }
     public StudyStyle StudyStyle { get; set; }

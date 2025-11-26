@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartDorm.Models;
 
 public class DormitoryManager
 {
-    public int ManagerId { get; set; }
+    public int Id { get; set; }
     public required string FullName { get; set; }
     
     [MaxLength(15)]

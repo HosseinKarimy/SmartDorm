@@ -5,7 +5,7 @@ namespace SmartDorm.Models;
 
 public class SpecialCondition
 {
-    public int ConditionId { get; set; }
+    public int Id { get; set; }
     public int StudentId { get; set; }
     public Student Student { get; set; } = null!;
 

@@ -5,7 +5,7 @@ namespace SmartDorm.Models;
 
 public class UserAccount
 {
-    public int UserId { get; set; }
+    public int Id { get; set; }
 
     [MaxLength(100)]
     public required string Username { get; set; }
