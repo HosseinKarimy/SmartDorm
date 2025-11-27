@@ -26,13 +26,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("DormitoryManager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Dormitories/Rooms/CreateRoom">Add Room</a>
+                            </li>
+                        }
                     </ul>
                 </div>
-            </div>
-
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">SmartDorm</a>
-
                 <div class="d-flex">
 
                     @if (User.Identity != null && User.Identity.IsAuthenticated)

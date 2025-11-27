@@ -1,0 +1,73 @@
+﻿@page
+@using SmartDorm.Enums
+@model SmartDorm.Pages.Dormitories.Rooms.CreateRoomModel
+
+@{
+    ViewData["Title"] = "Add Room";
+}
+
+<h1>Add New Room</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Input.DormitoryId" class="form-label"></label>
+        <select asp-for="Input.DormitoryId" class="form-select"
+                asp-items="@(new SelectList(Model.Dormitories, "DormitoryId", "Name"))">
+        </select>
+        <span asp-validation-for="Input.DormitoryId" class="text-danger"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.RoomNumber" class="form-label"></label>
+            <input asp-for="Input.RoomNumber" class="form-control" />
+            <span asp-validation-for="Input.RoomNumber" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Floor" class="form-label"></label>
+            <input asp-for="Input.Floor" class="form-control" />
+            <span asp-validation-for="Input.Floor" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.WingOrBlock" class="form-label"></label>
+            <input asp-for="Input.WingOrBlock" class="form-control" />
+            <span asp-validation-for="Input.WingOrBlock" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Input.Capacity" class="form-label"></label>
+            <input asp-for="Input.Capacity" class="form-control" />
+            <span asp-validation-for="Input.Capacity" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Input.HasPrivateBathroom" class="form-label"></label>
+            <input asp-for="Input.HasPrivateBathroom" type="checkbox" class="form-check-input" />
+            <span asp-validation-for="Input.HasPrivateBathroom" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.GenderType" class="form-label"></label>
+        <select asp-for="Input.GenderType" class="form-select"
+                asp-items="Html.GetEnumSelectList<GenderType>()">
+        </select>
+        <span asp-validation-for="Input.GenderType" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Input.IsActive" class="form-check-input" />
+        <label asp-for="Input.IsActive" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Room</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
