@@ -5,76 +5,68 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartDorm.Data;
 using SmartDorm.Models;
 using Microsoft.EntityFrameworkCore;
+using SmartDorm.Services;
 
 namespace SmartDorm.Pages.Features.Dormitories.RoomManagement.CreateRoom;
 
 [Authorize(Roles = "Admin,DormitoryManager")]
-public class CreateRoomModel(AppDbContext context) : PageModel
+public class CreateRoomModel(IRoomService _roomService) : PageModel
 {
-
-    // For dropdown
     public List<Dormitory> Dormitories { get; set; } = new();
 
     [BindProperty]
-    public Room Input { get; set; } = new();
+    public CreateRoomInputModel Input { get; set; } = new();
 
     public async Task<IActionResult> OnGetAsync()
     {
-        // Admin sees all dormitories
-        // Dorm managers see only their assigned one(s)
-        var role = User.FindFirst(ClaimTypes.Role)?.Value;
-
-        if (role == "Admin")
-        {
-            Dormitories = await context.Dormitories.ToListAsync();
-        }
-        else // DormitoryManager
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-
-            // find manager's dormitory
-            var managerDormId = await context.DormitoryManagers
-                .Where(dm => dm.UserId == userId)
-                .Select(dm => dm.Id)
-                .FirstOrDefaultAsync();
-
-            Dormitories = await context.Dormitories
-                .Where(d => d.DormitoryId == managerDormId)
-                .ToListAsync();
-        }
+        var (userId, role) = GetCurrentUser();
+        Dormitories = await _roomService.GetAllowedDormitoriesAsync(userId, role);
 
         if (!Dormitories.Any())
-            return Unauthorized(); // no dormitory assigned
+        {
+            return Unauthorized();
+        }
 
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // Validation
+        var (userId, role) = GetCurrentUser();
+        Dormitories = await _roomService.GetAllowedDormitoriesAsync(userId, role);
+
         if (!ModelState.IsValid)
         {
-            await OnGetAsync(); // re-load dormitory list
+            // Need dorm list to re-render form after validation errors
             return Page();
         }
 
-        // Security: ensure user can add to this dormitory
-        var role = User.FindFirst(ClaimTypes.Role)?.Value;
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-
-        if (role == "DormitoryManager")
+        try
         {
-            bool ownsDorm = await context.DormitoryManagers
-                .AnyAsync(dm => dm.UserId == userId && dm.Id == Input.DormitoryId);
-
-            if (!ownsDorm)
-                return Unauthorized();
+            await _roomService.AddRoomAsync(Input, userId, role);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return Page();
+        }
+        catch (InvalidOperationException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return Page();
         }
 
-        // Save room
-        context.Rooms.Add(Input);
-        await context.SaveChangesAsync();
-
         return RedirectToPage("/Rooms/Index");
+    }
+
+    private (int userId, string role) GetCurrentUser()
+    {
+        var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+            ?? throw new InvalidOperationException("User id claim missing.");
+
+        var role = User.FindFirst(ClaimTypes.Role)?.Value
+            ?? throw new InvalidOperationException("Role claim missing.");
+
+        return (int.Parse(idClaim), role);
     }
 }
