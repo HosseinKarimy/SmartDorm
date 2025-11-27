@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SmartDorm.Data;
 
@@ -5,6 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Cookie auth
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Users/Login";
+        options.LogoutPath = "/Users/Logout";
+        options.AccessDeniedPath = "/Users/AccessDenied";
+    });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(
@@ -25,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
