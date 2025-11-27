@@ -1,0 +1,178 @@
+﻿@page "/signup"
+@model SmartDorm.Pages.Users.RegisterStudent.RegisterModel
+@using SmartDorm.Models
+@using SmartDorm.Enums
+@{
+    ViewData["Title"] = "Student Signup";
+}
+
+<h1>Student Signup</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <fieldset>
+        <legend>Account</legend>
+        <div class="mb-3">
+            <label asp-for="Input.Username" class="form-label"></label>
+            <input asp-for="Input.Username" class="form-control" />
+            <span asp-validation-for="Input.Username" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Student Profile</legend>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.StudentNumber" class="form-label"></label>
+                <input asp-for="Input.StudentNumber" class="form-control" />
+                <span asp-validation-for="Input.StudentNumber" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.EntryYear" class="form-label"></label>
+                <input asp-for="Input.EntryYear" class="form-control" />
+                <span asp-validation-for="Input.EntryYear" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.FirstName" class="form-label"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.LastName" class="form-label"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label asp-for="Input.Gender" class="form-label"></label>
+                <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<GenderType>()" class="form-select"></select>
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Input.BirthdayYear" class="form-label"></label>
+                <input asp-for="Input.BirthdayYear" class="form-control" />
+                <span asp-validation-for="Input.BirthdayYear" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Input.DegreeLevel" class="form-label"></label>
+                <select asp-for="Input.DegreeLevel" asp-items="Html.GetEnumSelectList<DegreeLevel>()" class="form-select"></select>
+                <span asp-validation-for="Input.DegreeLevel" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.FieldOfStudy" class="form-label"></label>
+            <select asp-for="Input.FieldOfStudy" asp-items="Html.GetEnumSelectList<FieldOfStudy>()" class="form-select"></select>
+            <span asp-validation-for="Input.FieldOfStudy" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.Email" class="form-label"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Room Preferences</legend>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.SleepHabit" class="form-label"></label>
+                <select asp-for="Input.SleepHabit" asp-items="Html.GetEnumSelectList<SleepHabit>()" class="form-select"></select>
+                <span asp-validation-for="Input.SleepHabit" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.NoiseToleranceLevel" class="form-label"></label>
+                <select asp-for="Input.NoiseToleranceLevel" asp-items="Html.GetEnumSelectList<NoiseToleranceLevel>()" class="form-select"></select>
+                <span asp-validation-for="Input.NoiseToleranceLevel" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.StudyStyle" class="form-label"></label>
+                <select asp-for="Input.StudyStyle" asp-items="Html.GetEnumSelectList<StudyStyle>()" class="form-select"></select>
+                <span asp-validation-for="Input.StudyStyle" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Input.RoomAtmosphere" class="form-label"></label>
+                <select asp-for="Input.RoomAtmosphere" asp-items="Html.GetEnumSelectList<RoomAtmosphere>()" class="form-select"></select>
+                <span asp-validation-for="Input.RoomAtmosphere" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.RoomCapacity" class="form-label"></label>
+            <input asp-for="Input.RoomCapacity" class="form-control" />
+            <span asp-validation-for="Input.RoomCapacity" class="text-danger"></span>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Special Condition (optional)</legend>
+        <div class="form-check mb-3">
+            <input asp-for="Input.HasSpecialCondition" class="form-check-input" />
+            <label asp-for="Input.HasSpecialCondition" class="form-check-label">
+                I have a special condition that should be considered
+            </label>
+        </div>
+
+        <div id="special-condition-section">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Input.ConditionType" class="form-label"></label>
+                    <select asp-for="Input.ConditionType" asp-items="Html.GetEnumSelectList<ConditionType>()" class="form-select"></select>
+                    <span asp-validation-for="Input.ConditionType" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Input.ConditionSeverity" class="form-label"></label>
+                    <select asp-for="Input.ConditionSeverity" asp-items="Html.GetEnumSelectList<Severity>()" class="form-select">
+                        <option value="">-- Select --</option>
+                    </select>
+                    <span asp-validation-for="Input.ConditionSeverity" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ConditionDescription" class="form-label"></label>
+                <textarea asp-for="Input.ConditionDescription" class="form-control"></textarea>
+                <span asp-validation-for="Input.ConditionDescription" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ConditionNeeds" class="form-label"></label>
+                <textarea asp-for="Input.ConditionNeeds" class="form-control"></textarea>
+                <span asp-validation-for="Input.ConditionNeeds" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary mt-3">Sign up</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
