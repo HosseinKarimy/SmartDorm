@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SmartDorm.Pages.Users.RegisterStudent
+namespace SmartDorm.Pages.Features.StudentProfileManagement.RegisterStudent
 {
     public class SuccessPageModel : PageModel
     {

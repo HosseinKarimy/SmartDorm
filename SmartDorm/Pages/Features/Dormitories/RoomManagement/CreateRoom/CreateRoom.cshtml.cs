@@ -6,7 +6,7 @@ using SmartDorm.Data;
 using SmartDorm.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace SmartDorm.Pages.Dormitories.Rooms;
+namespace SmartDorm.Pages.Features.Dormitories.RoomManagement.CreateRoom;
 
 [Authorize(Roles = "Admin,DormitoryManager")]
 public class CreateRoomModel(AppDbContext context) : PageModel

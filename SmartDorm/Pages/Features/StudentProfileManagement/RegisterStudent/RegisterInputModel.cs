@@ -1,7 +1,7 @@
 ﻿using SmartDorm.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmartDorm.Pages.Users.RegisterStudent;
+namespace SmartDorm.Pages.Features.StudentProfileManagement.RegisterStudent;
 
 public class RegisterInputModel
 {

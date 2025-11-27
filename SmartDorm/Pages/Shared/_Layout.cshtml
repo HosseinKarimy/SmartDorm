@@ -29,7 +29,7 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("DormitoryManager"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Dormitories/Rooms/CreateRoom">Add Room</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="Features/Dormitories/RoomManagement/CreateRoom/CreateRoom">Add Room</a>
                             </li>
                         }
                     </ul>
@@ -44,7 +44,7 @@
                             (<span class="text-muted">@User.FindFirst(ClaimTypes.Role)?.Value</span>)
                         </span>
 
-                        <form method="post" asp-page="/users/Logout/Logout">
+                        <form method="post" asp-page="/features/userManagement/Logout/Logout">
                             <button type="submit" class="btn btn-outline-danger btn-sm">
                                 Logout
                             </button>
@@ -53,7 +53,7 @@
                     else
                     {
                         <!-- Not logged in -->
-                        <a asp-page="/users/Login/Login" class="btn btn-outline-primary btn-sm">
+                        <a asp-page="/features/userManagement/Login/Login" class="btn btn-outline-primary btn-sm">
                             Login
                         </a>
                     }

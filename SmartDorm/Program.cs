@@ -11,9 +11,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Users/Login";
-        options.LogoutPath = "/Users/Logout";
-        options.AccessDeniedPath = "/Users/AccessDenied";
+        options.LoginPath = "/Features/UserManagement/Login";
+        options.LogoutPath = "/Features/UserManagement/Logout";
     });
 
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -7,7 +7,7 @@ using SmartDorm.Data;
 using SmartDorm.Enums;
 using SmartDorm.Models;
 
-namespace SmartDorm.Pages.Users.RegisterStudent
+namespace SmartDorm.Pages.Features.StudentProfileManagement.RegisterStudent
 {
     public class RegisterModel(AppDbContext context) : PageModel
     {
@@ -97,7 +97,7 @@ namespace SmartDorm.Pages.Users.RegisterStudent
 
             await context.SaveChangesAsync();
 
-            return RedirectToPage("/Users/RegisterStudent/SuccessPage");
+            return RedirectToPage("/SuccessPage");
         }
 
         // Simple hash for demo.

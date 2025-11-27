@@ -8,7 +8,7 @@ using SmartDorm.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
-namespace SmartDorm.Pages.Users.Login;
+namespace SmartDorm.Pages.Features.UserManagement.Login;
 
 
 public class LoginModel : PageModel

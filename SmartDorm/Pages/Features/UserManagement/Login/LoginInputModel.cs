@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartDorm.Pages.Users.Login
+namespace SmartDorm.Pages.Features.UserManagement.Login
 {
     public class LoginInputModel
     {

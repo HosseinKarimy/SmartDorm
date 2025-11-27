@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SmartDorm.Pages.Users.Logout;
+namespace SmartDorm.Pages.Features.UserManagement.Logout;
 
 public class LogoutModel : PageModel
 {
