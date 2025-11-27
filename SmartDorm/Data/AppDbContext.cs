@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartDorm.Enums;
 using SmartDorm.Models;
 
 namespace SmartDorm.Data
@@ -17,7 +18,126 @@ namespace SmartDorm.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            SetRelations(modelBuilder);
+            SeedData(modelBuilder);
+        }
 
+        private static void SeedData(ModelBuilder modelBuilder)
+        {
+            // -----------------------------------------
+            // PASSWORD HASH FOR ADMIN ("Admin123!")
+            // -----------------------------------------
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var adminPasswordHash = Convert.ToBase64String(
+                sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes("Admin123!"))
+            );
+
+            // -----------------------------------------
+            // SEED: USER ACCOUNTS
+            // -----------------------------------------
+            modelBuilder.Entity<UserAccount>().HasData(
+                new UserAccount
+                {
+                    Id = 1,
+                    Username = "admin",
+                    PasswordHash = adminPasswordHash,
+                    Role = UserRole.Admin,
+                    IsActive = true
+                },
+                new UserAccount
+                {
+                    Id = 2,
+                    Username = "dormmanager",
+                    PasswordHash = adminPasswordHash,
+                    Role = UserRole.DormitoryManager,
+                    IsActive = true
+                }
+            );
+
+            // -----------------------------------------
+            // SEED: DORMITORIES
+            // -----------------------------------------
+            modelBuilder.Entity<Dormitory>().HasData(
+                new Dormitory
+                {
+                    DormitoryId = 1,
+                    Name = "Sadra",
+                    Address = "Campus North Zone",
+                    CampusLocation = "North",
+                    TotalCapacity = 300,
+                    GenderType = GenderType.Male,
+                    ManagerId = 1 // reference DormitoryManager.Id
+                },
+                new Dormitory
+                {
+                    DormitoryId = 2,
+                    Name = "Sadaf",
+                    Address = "Campus West Zone",
+                    CampusLocation = "West",
+                    TotalCapacity = 250,
+                    GenderType = GenderType.Female,
+                    ManagerId = 1
+                }
+            );
+
+            // -----------------------------------------
+            // SEED: DORMITORY MANAGER
+            // -----------------------------------------
+            modelBuilder.Entity<DormitoryManager>().HasData(
+                new DormitoryManager
+                {
+                    Id = 1,
+                    UserId = 2,          // maps to dormmanager user
+                    FullName = "mosayebi",
+                    PhoneNumber = "555-1234",
+                }
+            );
+
+            // -----------------------------------------
+            // SEED: ROOMS
+            // -----------------------------------------
+            modelBuilder.Entity<Room>().HasData(
+                new Room
+                {
+                    RoomId = 1,
+                    DormitoryId = 1,
+                    RoomNumber = 336,
+                    Floor = 1,
+                    WingOrBlock = 3,
+                    Capacity = 2,
+                    HasPrivateBathroom = false,
+                    GenderType = GenderType.Male,
+                    IsActive = true
+                },
+                new Room
+                {
+                    RoomId = 2,
+                    DormitoryId = 1,
+                    RoomNumber = 212,
+                    Floor = 1,
+                    WingOrBlock = 1,
+                    Capacity = 3,
+                    HasPrivateBathroom = true,
+                    GenderType = GenderType.Male,
+                    IsActive = true
+                },
+                new Room
+                {
+                    RoomId = 3,
+                    DormitoryId = 2,
+                    RoomNumber = 5,
+                    Floor = 2,
+                    WingOrBlock = 3,
+                    Capacity = 2,
+                    HasPrivateBathroom = true,
+                    GenderType = GenderType.Female,
+                    IsActive = true
+                }
+            );
+        }
+
+        private static void SetRelations(ModelBuilder modelBuilder)
+        {
             // 1-to-1 Student <-> StudentPreference
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Preference)
