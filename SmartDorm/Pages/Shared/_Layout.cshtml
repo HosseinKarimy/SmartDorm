@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,6 +29,37 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">SmartDorm</a>
+
+                <div class="d-flex">
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <!-- Logged-in state -->
+                        <span class="navbar-text me-3">
+                            <strong>@User.Identity.Name</strong>
+                            (<span class="text-muted">@User.FindFirst(ClaimTypes.Role)?.Value</span>)
+                        </span>
+
+                        <form method="post" asp-page="/users/Logout/Logout">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                Logout
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <!-- Not logged in -->
+                        <a asp-page="/users/Login/Login" class="btn btn-outline-primary btn-sm">
+                            Login
+                        </a>
+                    }
+
+                </div>
+            </div>
+
         </nav>
     </header>
     <div class="container">
