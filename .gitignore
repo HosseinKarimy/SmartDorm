@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /SmartDorm/Data/mydb.db
+/SmartDorm/Data/mydb.db-shm
+/SmartDorm/Data/mydb.db-wal
